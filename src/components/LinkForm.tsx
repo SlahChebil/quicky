@@ -1,16 +1,26 @@
+import { FieldValues } from "react-hook-form";
 import CustomButton from "../shared/components/CustomButton";
 import { ControlledInput } from "../shared/components/CustomInput";
 import FormWrapper from "../shared/components/FormWrapper";
-
+import { useShortenUrl } from "../services/shortenLinkApIs";
 
 interface LinkFormProps {
-  handleSubmit: (link: string) => void;
+  onSucess: (link: string) => void;
 }
-export const LinkForm = ({ handleSubmit }: LinkFormProps) => {
-  const handleFormSubmit = (data: any) => {
-    handleSubmit(data.link);
-  };
+export const LinkForm = ({ onSucess }: LinkFormProps) => {
+  const { mutate, isLoading } = useShortenUrl();
 
+  const handleFormSubmit = ({ link }: FieldValues) => {
+    if (!link.trim()) return;
+    mutate(
+      { fullUrl: link },
+      {
+        onSuccess: (data) => {
+          onSucess(data.shortUrl);
+        },
+      }
+    );
+  };
   return (
     <FormWrapper onSubmit={handleFormSubmit} defaultValues={{ link: "" }}>
       <ControlledInput
@@ -18,7 +28,12 @@ export const LinkForm = ({ handleSubmit }: LinkFormProps) => {
         name="link"
         placeholder="Paste your long URL here..."
       />
-      <CustomButton text="Shorten URL" type="submit" variant="gradient" />
+      <CustomButton
+        text="Shorten URL"
+        type="submit"
+        variant="gradient"
+        loading={isLoading}
+      />
     </FormWrapper>
   );
 };
