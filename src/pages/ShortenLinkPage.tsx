@@ -18,7 +18,7 @@ export const ShortenLinkPage = () => {
         <div className="bg-white p-6 rounded-lg shadow-xl w-96">
           <div className="flex justify-center items-center mb-3">
             <Link className="w-12 h-12 text-blue-500" />
-            <h1 className="text-3xl font-semibold text-blue-500">Shortex</h1>
+            <h1 className="text-3xl font-semibold align-middle text-blue-500">Quick-link</h1>
           </div>
           <h2 className="text-2xl font-semibold text-center mb-4">
             Shorten Your URL
@@ -32,13 +32,14 @@ export const ShortenLinkPage = () => {
                 onClick={() => {
                   copyToClipboard(shortUrl);
                 }}
-                className="p-3 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 text-center text-gray-700 cursor-pointer hover:bg-gray-200 transition"
+                className="p-3 border-2 border-dashed border-gray-300 rounded-lg bg-gray-50 text-center text-black cursor-pointer hover:bg-gray-200 transition"
               >
                 {shortUrl}
-              </div>
-              <p className="text-center text-sm text-gray-500 mt-2">
-                {isCopied ? "Copied!" : "Click to copy to clipboard"}
+                <p className="text-center text-sm text-gray-500 mt-4">
+                {isCopied ? "Copied!" : "Click to copy"}
               </p>
+              </div>
+
               <div className="mt-4 w-full flex justify-center">
                 <QRCodeSVG value={shortUrl}/>
               </div>
