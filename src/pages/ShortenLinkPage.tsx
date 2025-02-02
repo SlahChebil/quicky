@@ -10,9 +10,7 @@ export const ShortenLinkPage = () => {
   
     const shortenUrl = (url: string) => {
       if (url.trim() === "") return;
-      setShortUrl(
-        `https://shortex.ly/${Math.random().toString(36).substr(2, 6)}`
-      );
+      setShortUrl(url);
     };
   
     return (
